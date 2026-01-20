@@ -149,8 +149,187 @@ const siteName = 'Moscow Erotic Massage 🌍';
             overflow: hidden;
         }
         
-        /* Mobile containment */
+        /* ============================================
+           HEADER - CRITICAL STYLES INLINE
+           ============================================ */
+        .site-header {
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none !important;
+            color: white !important;
+        }
+
+        .logo-emoji {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .logo-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: white !important;
+            letter-spacing: -0.5px;
+        }
+
+        .site-logo:hover {
+            text-decoration: none !important;
+            opacity: 0.95;
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .site-nav a {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+            padding: 6px 4px;
+        }
+
+        .site-nav a:hover {
+            color: white !important;
+            text-decoration: none !important;
+        }
+
+        .nav-btn {
+            background: white !important;
+            color: #e91e63 !important;
+            padding: 12px 24px !important;
+            border-radius: 30px;
+            font-weight: 700 !important;
+            font-size: 0.95rem !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25) !important;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .mobile-menu-btn svg {
+            width: 26px;
+            height: 26px;
+            color: white;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(160deg, #e91e63 0%, #9c27b0 100%);
+            z-index: 9999;
+            padding: 100px 30px 30px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mobile-menu a {
+            color: white !important;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-decoration: none !important;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .mobile-menu .mobile-cta {
+            background: white !important;
+            color: #e91e63 !important;
+            padding: 18px 28px !important;
+            border-radius: 35px;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+        }
+
+        .mobile-close svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
         @media (max-width: 768px) {
+            .header-inner {
+                padding: 14px 16px;
+            }
+            .site-nav {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             .container {
                 padding: 0 16px;
             }
@@ -200,6 +379,7 @@ const siteName = 'Moscow Erotic Massage 🌍';
                 <a href="/">Home</a>
                 <a href="/#all-listings">Venues</a>
                 <a href="/advertise">Advertise</a>
+                <a href="/contact-business">Contact</a>
                 <a href="https://gopremium.app/create-listing" rel="nofollow" class="nav-btn">+ Add Listing</a>
             </nav>
             <button class="mobile-menu-btn" aria-label="Menu">
@@ -211,20 +391,33 @@ const siteName = 'Moscow Erotic Massage 🌍';
     </header>
     
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-close" aria-label="Close menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
         <nav>
             <a href="/">Home</a>
             <a href="/#all-listings">Venues</a>
             <a href="/advertise">Advertise</a>
+            <a href="/contact-business">Contact</a>
             <a href="https://gopremium.app/create-listing" rel="nofollow" class="mobile-cta">+ Add Listing</a>
         </nav>
     </div>
     
     <script is:inline>
+    // Mobile menu open
     document.querySelector('.mobile-menu-btn')?.addEventListener('click', () => {
-        document.querySelector('.mobile-menu')?.classList.toggle('open');
-        document.body.classList.toggle('menu-open');
+        document.querySelector('.mobile-menu')?.classList.add('open');
+        document.body.classList.add('menu-open');
     });
+    // Mobile menu close button
+    document.querySelector('.mobile-close')?.addEventListener('click', () => {
+        document.querySelector('.mobile-menu')?.classList.remove('open');
+        document.body.classList.remove('menu-open');
+    });
+    // Close on link click
     document.querySelectorAll('.mobile-menu a').forEach(a => {
         a.addEventListener('click', () => {
             document.querySelector('.mobile-menu')?.classList.remove('open');

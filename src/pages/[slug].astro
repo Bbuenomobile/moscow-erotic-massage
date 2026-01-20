@@ -183,29 +183,39 @@ const metaDesc = fullListing.description
                         </section>
                     )}
                     
-                    <!-- Gallery -->
+                    <!-- Gallery - Organized Grid -->
                     {fullListing.gallery && fullListing.gallery.length > 0 && (
-                        <section class="section">
-                            <h2>Photo & Video Gallery</h2>
-                            <p class="gallery-intro">Browse {fullListing.gallery.length} photos and videos from {listing.name}.</p>
-                            <div class="gallery">
-                                {fullListing.gallery.map((item: any, idx: number) => (
-                                    item.type === 'image' ? (
-                                        <img 
-                                            src={item.url} 
-                                            alt={`${listing.name} - Photo ${idx + 1}`}
-                                            loading="lazy" 
-                                        />
-                                    ) : (
-                                        <video 
-                                            src={item.url} 
-                                            controls 
-                                            preload="metadata"
-                                            poster={listing.thumbnail}
-                                        ></video>
-                                    )
+                        <section class="section gallery-section">
+                            <h2>📸 Photo & Video Gallery</h2>
+                            <p class="gallery-intro">{fullListing.gallery.length} media items from {listing.name}</p>
+                            <div class="gallery-grid">
+                                {fullListing.gallery.slice(0, 12).map((item: any, idx: number) => (
+                                    <div class={`gallery-item ${idx === 0 ? 'featured' : ''}`} key={idx}>
+                                        {item.type === 'image' ? (
+                                            <img 
+                                                src={item.url} 
+                                                alt={`${listing.name} - Photo ${idx + 1}`}
+                                                loading="lazy"
+                                                class="gallery-media"
+                                            />
+                                        ) : (
+                                            <div class="video-wrapper">
+                                                <video 
+                                                    src={item.url} 
+                                                    controls 
+                                                    preload="metadata"
+                                                    poster={listing.thumbnail}
+                                                    class="gallery-media"
+                                                ></video>
+                                                <span class="video-badge">▶ Video</span>
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
+                            {fullListing.gallery.length > 12 && (
+                                <p class="gallery-more">+ {fullListing.gallery.length - 12} more photos available</p>
+                            )}
                         </section>
                     )}
                     
@@ -513,10 +523,6 @@ const metaDesc = fullListing.description
         padding: 8px 15px;
         border-radius: 6px;
         font-size: 14px;
-    }
-    .gallery-intro {
-        color: var(--text-light);
-        margin-bottom: 15px;
     }
     .why-choose ul {
         list-style: none;

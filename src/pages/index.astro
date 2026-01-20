@@ -128,7 +128,7 @@ const heroListings = [...goldListings, ...premiumListings.filter((l: any) => !l.
                         <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                             <h3 itemprop="name">{item.question}</h3>
                             <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                                <p itemprop="text">{item.answer}</p>
+                                <div itemprop="text" set:html={item.answer} />
                             </div>
                         </div>
                     ))}
