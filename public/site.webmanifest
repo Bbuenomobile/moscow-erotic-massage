@@ -1,0 +1,16 @@
+{
+    "name": "Moscow Erotic massage",
+    "short_name": "Moscow Erotic Massage \ud83c\udf0d",
+    "description": "Discover the best erotic massage in Moscow. Explore 0 verified venues in iconic districts like Tverskaya. Indulge in sensual bliss amid Red Square vibes. Book your session now!",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#e91e63",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}

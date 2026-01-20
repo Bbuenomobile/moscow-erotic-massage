@@ -1,0 +1,355 @@
+---
+import Base from '../layouts/Base.astro';
+import ListingCard from '../components/ListingCard.astro';
+import InternalLinks from '../components/InternalLinks.astro';
+import OwnerCTA from '../components/OwnerCTA.astro';
+import CategoryNav from '../components/CategoryNav.astro';
+import NetworkLinks from '../components/NetworkLinks.astro';
+
+// Safe fetch helper for build-time API calls
+async function safeFetchJson(url: string): Promise<any[]> {
+    try {
+        console.log('Fetching:', url);
+        const res = await fetch(url, {
+            headers: { 
+                'Accept': 'application/json',
+                'User-Agent': 'ErotikMaps-Satellite-Builder/1.0',
+                'X-Satellite-Build': 'true'
+            }
+        });
+        
+        if (!res.ok) {
+            console.error('API returned ' + res.status + ': ' + res.statusText);
+            return [];
+        }
+        
+        const ct = res.headers.get('content-type') || '';
+        if (!ct.includes('application/json')) {
+            console.error('Expected JSON but got: ' + ct);
+            return [];
+        }
+        
+        const data = await res.json();
+        return data.data || [];
+    } catch (error) {
+        console.error('Fetch failed:', error);
+        return [];
+    }
+}
+
+// Fetch listings from API at build time
+const apiUrl = 'https://www.erotikmaps.com/api/v1/satellite/listings?city=moscow&category=erotic-massage&limit=100';
+const listings = await safeFetchJson(apiUrl);
+
+const faq = [{"question":"What is the best Erotic massage in Moscow?","answer":"<p>Finding the best <strong>erotic massage in Moscow<\/strong> depends on your vibe, but Tverskaya district salons stand out for their Bolshoi-inspired elegance and expert touch. Look for venues offering banya-infused sessions with body-to-body glides using birch-scented oils, perfect against Moscow's frosty backdrop. Our top picks emphasize privacy, English-speaking staff, and 90-minute rituals that blend tantra with Slavic sensuality. With <strong>0 verified listings<\/strong> now, we'll spotlight authentic gems soon—prioritize those near Red Square for an iconic experience. Always read recent reviews for current favorites.<\/p>"},{"question":"How much does Erotic massage cost in Moscow?","answer":"<p><strong>Erotic massage in Moscow<\/strong> typically costs 5,000-15,000 RUB ($50-150 USD) for a 60-90 minute session, varying by location and add-ons. Basic sensual rubs start at 5,000 RUB in Arbat spots, while premium Tverskaya parlors with private banyas and tantric extras hit 12,000+ RUB. Tips of 1,000-2,000 RUB are customary. Prices reflect Moscow's high standards—pay in cash rubles, as cards are rare. Winter promotions often slash 20%, so check ahead for deals amid the snowy streets.<\/p>"},{"question":"Is Erotic massage legal in Russia?","answer":"<p>Erotic massage itself is legal in Russia as a wellness service, but explicit sexual acts cross into prostitution, which is illegal and policed. Moscow venues operate in a gray area, focusing on sensual, non-penetrative experiences to stay compliant. Visitors should stick to licensed salons, avoid street offers, and respect discretion—Russian authorities prioritize public order. Use reputable directories, carry ID, and know your embassy contacts. In practice, upscale spots in central districts like Tverskaya face minimal issues if you follow etiquette.<\/p>"},{"question":"What are the best areas for Erotic massage in Moscow?","answer":"<p>The prime spots for <strong>erotic massage in Moscow<\/strong> cluster in Tverskaya Street for luxury amid luxury boutiques and Kremlin views, Arbat for artistic, bohemian vibes with cobblestone charm, and Patriarch's Ponds for trendy, upscale privacy. Avoid outskirts; central districts ensure safety and quality. These areas mix with Metro accessibility, late-night blini stalls, and winter lights, enhancing the sensual escape. Our <strong>0 verified listings<\/strong> will soon highlight top venues here—proximity to icons like Red Square adds thrill.<\/p>"},{"question":"What should I know before visiting a Erotic massage venue in Moscow?","answer":"<p>Before a <strong>erotic massage in Moscow<\/strong>, learn basic Russian phrases like 'zdravstvuyte' (hello) and 'spasibo' (thanks), as English varies. Book via WhatsApp, arrive clean (shower provided), and tip in rubles. Dress modestly outside—fur hats in winter—and expect direct communication; specify preferences upfront. Sessions start with tea; nudity is standard. Watch for cold weather delaying taxis, so use Yandex.Go. Prioritize hygiene, consent, and discretion in this culturally reserved city for a seamless, blissful encounter.<\/p>"}];
+const canonicalUrl = 'https://eroticmassagemoscow.net/';
+
+// HTML content from AI (stored as variables for set:html)
+const introHtml = `<p>Moscow, the grand heart of Russia, pulses with a unique blend of imperial opulence and modern intensity, making it the ultimate destination for <strong>erotic massage in Moscow</strong>. Beneath the golden domes of the Kremlin and the snowy expanses of Red Square, this city harbors a discreet yet thriving scene where Slavic beauty meets ancient relaxation rituals. Influenced by the stoic resilience of Russian winters and the fiery passion of balalaika nights, erotic massages here offer an escape that's as intense as a Siberian storm.</p><p>What sets <strong>erotic massage in Moscow</strong> apart is its fusion of traditional banya steam rituals with sensual body-to-body techniques. Visitors can expect skilled masseuses, often with roots in the ballet-trained grace of Bolshoi dancers, who craft personalized sessions in opulent, dimly lit salons. Neighborhoods like Tverskaya Street buzz with upscale parlors hidden behind neoclassical facades, while Arbat's artistic alleys host bohemian spots perfect for creative explorers.</p><p>Moscow's reputation for this intimate art traces back to tsarist-era bathhouses, evolving through Soviet secrecy into today's premium offerings. Despite the city's harsh -30°C winters, these warm havens provide heated tables, aromatic oils infused with birch and lavender scents from Russian forests, and a no-rush philosophy that lets tension melt away like snow under spring sun.</p><p>Whether you're a first-time traveler navigating the Metro's labyrinth or a repeat guest chasing that elusive bliss, <strong>erotic massage in Moscow</strong> promises discretion, luxury, and an authentic taste of Russian sensuality. Dive into this world where every touch echoes the city's unyielding allure.</p>
+
+<h2>About Moscow</h2>
+<p>Moscow captivates with its monumental architecture, from the onion-domed Saint Basil's Cathedral to the Stalinist skyscrapers of the Seven Sisters. As Russia's cultural powerhouse, it hosts world-class ballet at the Bolshoi Theatre and symphonies echoing Tchaikovsky's melodies, blending Orthodox traditions with cosmopolitan flair. Tourists flock here for the Tretyakov Gallery's icons and GUM department store's luxury under vaulted glass roofs.</p><p>Nightlife thrives in underground clubs along Patriarch's Ponds, where vodka flows amid techno beats, and rooftop bars overlook the Moskva River's frozen sparkle in winter. The city's rhythm—hasty commuters in fur hats, caviar feasts, and 24-hour blini stands—creates an intoxicating backdrop for any indulgence, including <strong>erotic massage in Moscow</strong>.</p>
+
+<h2>What to Expect</h2>
+<p>In <strong>erotic massage in Moscow</strong>, anticipate a warm welcome in private suites adorned with samovar teas and soft fur throws against the chill. Sessions typically last 60-90 minutes, starting with a shared banya steam for deep detoxification, followed by nude body slides using warmed oils. Masseuses speak some English but thrive on non-verbal cues, emphasizing mutual relaxation.</p><p>Prices range from 5,000-15,000 RUB (about $50-150 USD), depending on duration and extras like prostate focus or tantric elements. Etiquette demands politeness—use 'spasibo' (thank you) and tip 10-20% in cash. Always confirm services upfront to avoid misunderstandings in this direct Russian style.</p>`;
+const bottomHtml = `<p>Immerse yourself in the tantalizing world of <strong>erotic massage in Moscow</strong>, where every caress captures the city's enigmatic soul. From Tverskaya's elite salons to Arbat's intimate hideaways, these experiences blend luxury with raw passion, leaving you rejuvenated amid Moscow's timeless grandeur.</p><p>Currently, our directory features <strong>0 verified listings</strong> for erotic massage in Moscow, ensuring only the most authentic venues will appear. We're curating top spots with rigorous checks for safety, quality, and discretion—stay tuned as we expand.</p><p>Ready to surrender to Moscow's sensual embrace? Bookmark us, explore upcoming listings, and plan your visit. Whether chasing winter thrills or summer White Nights, your perfect <strong>erotic massage in Moscow</strong> awaits. Contact us for personalized recommendations and unlock the city's hidden pleasures today!</p>`;
+
+// Split listings for different sections
+const premiumListings = listings.filter((l: any) => l.is_premium);
+const goldListings = listings.filter((l: any) => l.is_gold);
+const regularListings = listings.filter((l: any) => !l.is_premium);
+
+// Get top 5 listings for hero slider (Gold first, then Premium)
+const heroListings = [...goldListings, ...premiumListings.filter((l: any) => !l.is_gold), ...regularListings]
+    .filter((l: any) => l.thumbnail)
+    .slice(0, 5);
+---
+
+<Base 
+    title="Erotic Massage Moscow: Top Venues &amp; Secrets 2024"
+    description="Discover the best erotic massage in Moscow. Explore 0 verified venues in iconic districts like Tverskaya. Indulge in sensual bliss amid Red Square vibes. Book your session now!"
+    canonical={canonicalUrl}
+    image={heroListings.length > 0 ? heroListings[0].thumbnail : 'https://erotikmaps.com/images/og-default.jpg'}
+>
+    <!-- Compact Hero Section -->
+    <section class="hero-compact">
+        <div class="container">
+            <h1>Unveil Sensual Secrets: Erotic Massage in Moscow&#039;s Hidden Gems</h1>
+            <p class="hero-subtitle">{listings.length} verified venues in Moscow</p>
+            <div class="hero-badges">
+                {goldListings.length > 0 && <span class="badge-stat gold">⭐ {goldListings.length} Gold</span>}
+                {premiumListings.length > 0 && <span class="badge-stat premium">✨ {premiumListings.length} Premium</span>}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Listings Grid - Mobile First -->
+    <section class="listings" id="all-listings">
+        <div class="container">
+            <div class="listings-grid-3">
+                {listings.map((listing: any) => (
+                    <ListingCard listing={listing} />
+                ))}
+            </div>
+            
+            {listings.length === 0 && (
+                <p class="no-listings">No listings found. Check back soon!</p>
+            )}
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2>About Erotic massage in Moscow</h2>
+            <div class="about-content" set:html={introHtml} />
+        </div>
+    </section>
+    
+    <!-- Category Navigation -->
+    <CategoryNav city="Moscow" />
+    
+    <!-- Network Links - Links to other satellite sites -->
+    <NetworkLinks currentCity="Moscow" currentCountry="Russia" category="erotic-massage" />
+    
+    <!-- Internal Links Section -->
+    <InternalLinks city="Moscow" country="Russia" category="Erotic massage" />
+    
+    <!-- Owner CTA Section - Encourage venue owners to create listings -->
+    <OwnerCTA city="Moscow" country="Russia" category="Erotic massage" />
+    
+    <!-- FAQ Section -->
+    {faq && faq.length > 0 && (
+        <section class="faq" id="faq">
+            <div class="container">
+                <h2>Frequently Asked Questions about Erotic massage in Moscow</h2>
+                <div class="faq-list">
+                    {faq.map((item: any, index: number) => (
+                        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                            <h3 itemprop="name">{item.question}</h3>
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                                <p itemprop="text">{item.answer}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    )}
+    
+    <!-- Bottom Section / Call to Action -->
+    <section class="bottom-content">
+        <div class="container">
+            <h2>Find Your Perfect Erotic massage Experience in Moscow</h2>
+            <div class="bottom-content-text" set:html={bottomHtml} />
+            
+            <div class="cta-box">
+                <h3>Looking for something specific?</h3>
+                <p>Browse through our {listings.length} listings above, or click on any venue to see full details, photos, and contact information.</p>
+                <a href="#all-listings" class="btn-primary">Browse All Listings</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Individual Listing Links for SEO -->
+    <section class="sitemap-links">
+        <div class="container">
+            <h2>All Erotic massage Venues</h2>
+            <ul class="venue-links">
+                {listings.map((listing: any) => (
+                    <li><a href={`/${listing.slug}`}>{listing.name} - Moscow</a></li>
+                ))}
+            </ul>
+        </div>
+    </section>
+    
+    <!-- Schema.org - ItemList -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Erotic Massage Moscow: Top Venues &amp; Secrets 2024",
+        "description": "Discover the best erotic massage in Moscow. Explore 0 verified venues in iconic districts like Tverskaya. Indulge in sensual bliss amid Red Square vibes. Book your session now!",
+        "url": canonicalUrl,
+        "numberOfItems": listings.length,
+        "itemListElement": listings.map((listing: any, index: number) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+                "@type": "LocalBusiness",
+                "name": listing.name,
+                "url": `https://eroticmassagemoscow.net/${listing.slug}`,
+                "image": listing.thumbnail,
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Moscow",
+                    "addressCountry": "Russia"
+                }
+            }
+        }))
+    })}></script>
+    
+    <!-- Schema.org - FAQPage -->
+    {faq && faq.length > 0 && (
+        <script type="application/ld+json" set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faq.map((item: any) => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                }
+            }))
+        })}></script>
+    )}
+    
+    <!-- Schema.org - WebPage -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Erotic Massage Moscow: Top Venues &amp; Secrets 2024",
+        "description": "Discover the best erotic massage in Moscow. Explore 0 verified venues in iconic districts like Tverskaya. Indulge in sensual bliss amid Red Square vibes. Book your session now!",
+        "url": canonicalUrl,
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Moscow Erotic Massage 🌍",
+            "url": "https://eroticmassagemoscow.net"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Erotic massage in Moscow"
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://eroticmassagemoscow.net"
+                }
+            ]
+        }
+    })}></script>
+</Base>
+
+<style>
+    /* Compact Hero */
+    .hero-compact {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 30px 0;
+        text-align: center;
+    }
+    .hero-compact h1 {
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        margin-bottom: 8px;
+        font-weight: 700;
+    }
+    .hero-compact .hero-subtitle {
+        font-size: 0.95rem;
+        opacity: 0.9;
+        margin-bottom: 12px;
+    }
+    .hero-badges {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .badge-stat {
+        background: rgba(255,255,255,0.2);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .badge-stat.gold { background: rgba(255,215,0,0.3); }
+    .badge-stat.premium { background: rgba(255,255,255,0.25); }
+    
+    /* Listings Grid - Mobile First (1 col mobile, 2 tablet, 3 desktop) */
+    .listings-grid-3 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    @media (min-width: 540px) {
+        .listings-grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+        .listings-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    /* About Section */
+    .about-section {
+        background: var(--card-bg);
+        padding: 40px 0;
+    }
+    .about-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+    }
+    .about-content {
+        color: var(--text-light);
+        line-height: 1.7;
+    }
+    .about-content p { margin-bottom: 12px; }
+    
+    /* Listings Section */
+    .listings {
+        padding: 24px 0;
+    }
+    
+    .section-intro {
+        color: var(--text-light);
+        margin-bottom: 25px;
+    }
+    .premium-section {
+        background: linear-gradient(135deg, #D4AF3710, #F4D03F10);
+    }
+    .cta-box {
+        background: linear-gradient(135deg, var(--primary)10, var(--secondary)10);
+        padding: 30px;
+        border-radius: 12px;
+        margin-top: 30px;
+        text-align: center;
+    }
+    .cta-box h3 {
+        margin-bottom: 10px;
+    }
+    .cta-box p {
+        margin-bottom: 20px;
+        color: var(--text-light);
+    }
+    .sitemap-links {
+        padding: 40px 0;
+        background: var(--bg);
+    }
+    .sitemap-links h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    .venue-links {
+        column-count: 3;
+        column-gap: 30px;
+        list-style: none;
+        padding: 0;
+    }
+    .venue-links li {
+        margin-bottom: 8px;
+        break-inside: avoid;
+    }
+    .venue-links a {
+        font-size: 13px;
+        color: var(--text-light);
+    }
+    .venue-links a:hover {
+        color: var(--primary);
+    }
+    @media (max-width: 768px) {
+        .venue-links {
+            column-count: 1;
+        }
+    }
+</style>
